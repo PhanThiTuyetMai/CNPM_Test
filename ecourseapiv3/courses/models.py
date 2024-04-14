@@ -9,6 +9,7 @@ class User(AbstractUser):
 
 
 class BaseModel(models.Model):
+    object = models.Manager()
     created_date = models.DateTimeField(auto_created=True)
     updated_date = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
@@ -38,6 +39,7 @@ class Lesson(BaseModel):
     subject = models.CharField(max_length=255, null=False)
     content = RichTextField()
     image = CloudinaryField()
+    # on_delete=models.CASCADE là dùng cho khóa ngoại thì nếu xóa khóa học thì bài học sẽ mất lun
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     tags = models.ManyToManyField('Tag', null=True, blank=True)
 
